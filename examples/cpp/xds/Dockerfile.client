@@ -34,6 +34,9 @@ RUN apt-get update \
     && apt-get install -y curl
 
 COPY --from=0 /artifacts ./
-
 RUN ["chmod", "+x", "/init_td_and_run.sh"]
+
+#FROM gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+
+#WORKDIR /workdir
 ENTRYPOINT ["./init_td_and_run.sh", "grpc-mesh", "helloworld"]
