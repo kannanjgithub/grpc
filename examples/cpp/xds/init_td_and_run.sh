@@ -7,6 +7,11 @@
 #send "1"
 #send "kannanj-psm-interop-testing"
 export GRPC_XDS_BOOTSTRAP=/tmp/td-grpc-bootstrap.json
+export GRPC_EXPERIMENTAL_XDS_AUTHORITY_REWRITE=true
+export GRPC_EXPERIMENTAL_XDS_SYSTEM_ROOT_CERTS=true
+export GRPC_EXPERIMENTAL_XDS_GCP_AUTHENTICATION_FILTER=true
+export GRPC_TRACE=xds_client
+
 # Create the bootstrap file
 curl -L https://storage.googleapis.com/td-grpc-bootstrap/td-grpc-bootstrap-0.18.1.tar.gz | tar -xz
 ./td-grpc-bootstrap-0.18.1/td-grpc-bootstrap --config-mesh $1 --is-trusted-xds-server-experimental=true > $GRPC_XDS_BOOTSTRAP
