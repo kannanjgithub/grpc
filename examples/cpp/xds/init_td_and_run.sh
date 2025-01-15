@@ -13,6 +13,7 @@ export GRPC_EXPERIMENTAL_XDS_GCP_AUTHENTICATION_FILTER=true
 export GRPC_TRACE=xds_client
 
 # Create the bootstrap file
-curl -L https://storage.googleapis.com/td-grpc-bootstrap/td-grpc-bootstrap-0.18.1.tar.gz | tar -xz
+#https://pantheon.corp.google.com/storage/browser/grpc-bazel-mirror/github.com/twisted/twisted?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&project=grpc-testing
+curl -L https://storage.googleapis.com/grpc-bazel-mirror/github.com/twisted/twisted/td-grpc-bootstrap-0.18.1.tar.gz | tar -xz
 ./td-grpc-bootstrap-0.18.1/td-grpc-bootstrap --config-mesh $1 --is-trusted-xds-server-experimental=true > $GRPC_XDS_BOOTSTRAP
-./xds_greeter_client --xds_creds xds:///$2
+./xds_greeter_client --xds_creds --target=xds:///$2
