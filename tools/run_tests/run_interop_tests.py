@@ -1135,7 +1135,11 @@ def cloud_to_cloud_jobspec(
 
 
 def server_jobspec(
-    language, docker_image, transport_security="tls", manual_cmd_log=None, use_mcs=False
+    language,
+    docker_image,
+    transport_security="tls",
+    manual_cmd_log=None,
+    use_mcs=False,
 ):
     """Create jobspec for running a server"""
     container_name = dockerjob.random_name(
@@ -1817,23 +1821,23 @@ try:
             for l in _LANGUAGES_WITH_HTTP2_CLIENTS_FOR_HTTP2_SERVER_TEST_CASES
             if "all" in args.language or l in args.language
         )
-        if len(languages_for_mcs) > 0:          
+        if len(languages_for_mcs) > 0:
             mcs_server_jobspec = server_jobspec(
-                'java',
-                docker_images.get('java'),
+                "java",
+                docker_images.get("java"),
                 args.transport_security,
                 manual_cmd_log=server_manual_cmd_log,
                 use_mcs=True,
             )
             mcs_server_job = dockerjob.DockerJob(mcs_server_jobspec)
             jobs.append(mcs_server_job)
-        
+
             for language in languages_for_mcs:
                 test_job = cloud_to_cloud_jobspec(
                     language,
-                    'mcs',
-                    'java-mcs',
-                    'localhost',
+                    "mcs",
+                    "java-mcs",
+                    "localhost",
                     mcs_server_job.mapped_port(_DEFAULT_SERVER_PORT),
                     docker_image=docker_images.get(str(language)),
                     transport_security=args.transport_security,
@@ -1841,8 +1845,10 @@ try:
                 )
                 jobs.append(test_job)
         else:
-            print('MCS tests will be skipped since noen of the supported client languages for MCS testcases was specified')
-        
+            print(
+                "MCS tests will be skipped since noen of the supported client languages for MCS testcases was specified"
+            )
+
     if not jobs:
         print("No jobs to run.")
         for image in six.itervalues(docker_images):
