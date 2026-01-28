@@ -28,6 +28,7 @@ from setuptools.command import build_py
 from setuptools.command import easy_install
 from setuptools.command import install
 from setuptools.command import test
+from tests.interop import server as interop_server_lib
 
 PYTHON_STEM = os.path.dirname(os.path.abspath(__file__))
 GRPC_STEM = os.path.abspath(PYTHON_STEM + "../../../../")
@@ -208,13 +209,13 @@ class RunInterop(test.test):
             from tests_aio.interop import server
 
             sys.argv[1:] = self.args.split()
-            args = server.parse_interop_server_arguments(sys.argv)
+            args = interop_server_lib.parse_interop_server_arguments(sys.argv)
             asyncio.get_event_loop().run_until_complete(server.serve(args))
         else:
             from tests.interop import server
 
             sys.argv[1:] = self.args.split()
-            server.serve(server.parse_interop_server_arguments(sys.argv))
+            server.serve(interop_server_lib.parse_interop_server_arguments(sys.argv))
 
     def run_client(self):
         # We import here to ensure that our setuptools parent has had a chance to
