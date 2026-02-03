@@ -1135,7 +1135,11 @@ def cloud_to_cloud_jobspec(
 
 
 def server_jobspec(
-    language, docker_image, transport_security="tls", manual_cmd_log=None, use_mcs=False
+    language,
+    docker_image,
+    transport_security="tls",
+    manual_cmd_log=None,
+    use_mcs=False,
 ):
     """Create jobspec for running a server"""
     container_name = dockerjob.random_name(
@@ -1813,7 +1817,9 @@ try:
 
     if args.mcs_cs:
         if not args.use_docker:
-            print('MCS connection scaling test can only be run with --use-docker')
+            print(
+                "MCS connection scaling test can only be run with --use-docker"
+            )
         else:
             languages_for_mcs_cs = set(
                 _LANGUAGES[l]
@@ -1821,34 +1827,41 @@ try:
                 if "all" in args.language or l in args.language
             )
             if len(languages_for_mcs_cs) > 0:
-                print('Using java for MCS connection scaling server ignoring any args for server languages')
+                print(
+                    "Using java for MCS connection scaling server ignoring any args for server languages"
+                )
                 mcs_server_jobspec = server_jobspec(
-                    _LANGUAGES['java'],
-                    docker_images.get('java'),
+                    _LANGUAGES["java"],
+                    docker_images.get("java"),
                     args.transport_security,
                     manual_cmd_log=server_manual_cmd_log,
                     use_mcs=True,
                 )
-                print('mcs_server_jobspec shortname: ' + mcs_server_jobspec.shortname)
+                print(
+                    "mcs_server_jobspec shortname: "
+                    + mcs_server_jobspec.shortname
+                )
                 mcs_server_job = dockerjob.DockerJob(mcs_server_jobspec)
                 jobs.append(mcs_server_job)
-            
+
                 for language in languages_for_mcs_cs:
                     test_job = cloud_to_cloud_jobspec(
                         language,
-                        'mcs',
-                        'java-mcs',
-                        'localhost',
+                        "mcs",
+                        "java-mcs",
+                        "localhost",
                         mcs_server_job.mapped_port(_DEFAULT_SERVER_PORT),
                         docker_image=docker_images.get(str(language)),
                         transport_security=args.transport_security,
                         manual_cmd_log=client_manual_cmd_log,
                     )
-                    print('mcs test job shortname: ' + test_job.shortname)
+                    print("mcs test job shortname: " + test_job.shortname)
                     jobs.append(test_job)
             else:
-                print('MCS connection scaling tests will be skipped since none of the supported client languages for MCS connection scaling testcases was specified')
-        
+                print(
+                    "MCS connection scaling tests will be skipped since none of the supported client languages for MCS connection scaling testcases was specified"
+                )
+
     if not jobs:
         print("No jobs to run.")
         for image in six.itervalues(docker_images):
