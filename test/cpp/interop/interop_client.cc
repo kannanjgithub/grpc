@@ -1378,7 +1378,7 @@ bool InteropClient::DoMcsConnectionScaling() {
     LOG(ERROR) << "DoMcsConnectionScaling(): stream1->Write() failed.";
     return TransientFailureOrAbort();
   }
-  
+
   if (!stream1->Read(&response1)) {
     LOG(ERROR) << "DoMcsConnectionScaling(): stream1->Read() failed.";
     return TransientFailureOrAbort();
@@ -1401,7 +1401,7 @@ bool InteropClient::DoMcsConnectionScaling() {
   if (!stream2->Read(&response2)) {
     LOG(ERROR) << "DoMcsConnectionScaling(): stream2->Read() failed.";
     return TransientFailureOrAbort();
-  }  
+  }
   std::string clientSocketAddressInCall2 = response2.payload().body();
 
   // The same connection should have been used for both streams.
@@ -1423,7 +1423,7 @@ bool InteropClient::DoMcsConnectionScaling() {
   if (!stream3->Read(&response3)) {
     LOG(ERROR) << "DoMcsConnectionScaling(): stream3->Read() failed.";
     return TransientFailureOrAbort();
-  }  
+  }
   std::string clientSocketAddressInCall3 = response3.payload().body();
 
   // A new connection should have been used for the 3rd stream.
