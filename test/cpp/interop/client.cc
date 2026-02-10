@@ -216,7 +216,8 @@ int main(int argc, char** argv) {
   }
   grpc::testing::ChannelCreationFunc channel_creation_func =
       [test_case, &additional_metadata](grpc::ChannelArguments arguments) {
-        std::cout << "channel creation function called for testcase " << test_case;
+        std::cout << "channel creation function called for testcase "
+                  << test_case;
         std::cout.flush();
         std::vector<std::unique_ptr<
             grpc::experimental::ClientInterceptorFactoryInterface>>
@@ -231,7 +232,8 @@ int main(int argc, char** argv) {
               new grpc::testing::MetadataAndStatusLoggerInterceptorFactory());
         }
         if (test_case == "mcs_cs") {
-          arguments.SetServiceConfigJSON("{\"connectionScaling\":{\"maxConnectionsPerSubchannel\": 2}}");
+          arguments.SetServiceConfigJSON(
+              "{\"connectionScaling\":{\"maxConnectionsPerSubchannel\": 2}}");
         } else {
           std::string service_config_json =
               absl::GetFlag(FLAGS_service_config_json);
