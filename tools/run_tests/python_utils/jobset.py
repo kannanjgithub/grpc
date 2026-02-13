@@ -280,7 +280,13 @@ class Job(object):
     def __init__(
         self, spec, newline_on_success, travis, add_env, quiet_success=False
     ):
-        print('Job called for spec ' + spec.shortname + ' quite_success: ' + str(quiet_success), flush=True)
+        print(
+            "Job called for spec "
+            + spec.shortname
+            + " quite_success: "
+            + str(quiet_success),
+            flush=True,
+        )
         self._spec = spec
         self._newline_on_success = newline_on_success
         self._travis = travis
@@ -311,7 +317,12 @@ class Job(object):
             # error during the creation of temporary file. By using
             # NamedTemporaryFile, we defer the removal of file and directory.
             self._logfile = tempfile.NamedTemporaryFile(delete=False)
-            print('Job ' + self._spec.shortname + ' started with log file ' + self._logfile.name)
+            print(
+                "Job "
+                + self._spec.shortname
+                + " started with log file "
+                + self._logfile.name
+            )
         env = dict(os.environ)
         env.update(self._spec.environ)
         env.update(self._add_env)
