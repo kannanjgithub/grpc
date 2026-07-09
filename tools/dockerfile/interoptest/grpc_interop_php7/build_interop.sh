@@ -41,6 +41,10 @@ popd
 
 cd src/php
 
+# Configure Composer to not block insecure/vulnerable packages (needed because of
+# older firebase/php-jwt in dependencies on PHP 7.4)
+php -d extension=ext/grpc/modules/grpc.so /usr/local/bin/composer config audit.block-insecure false || true
+
 DONE=0
 for ((i = 0; i < 5; i++)); do
   php -d extension=ext/grpc/modules/grpc.so /usr/local/bin/composer install && DONE=1 && break
