@@ -12,21 +12,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-# Builds PHP interop server and client in a base image.
+
 set -ex
 
-mkdir -p /var/local/git
-git clone /var/local/jenkins/grpc /var/local/git/grpc
-# clone gRPC submodules, use data from locally cloned submodules where possible
-(cd /var/local/jenkins/grpc/ && git submodule foreach 'cd /var/local/git/grpc \
-&& git submodule update --init --reference /var/local/jenkins/grpc/${name} \
-${name}')
-
-# copy service account keys if available
-cp -r /var/local/jenkins/service_account $HOME || true
-
-cd /var/local/git/grpc
+# cd to gRPC root
+cd "$(dirname "$0")/../../.."
 grpc_root="$(pwd)"
 
 # Install gRPC C core
