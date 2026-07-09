@@ -33,6 +33,7 @@ _LIST_OF_LANGUAGE_LABELS = [
     "objc",
     "php",
     "php7",
+    "php8",
     "python",
     "ruby",
 ]
