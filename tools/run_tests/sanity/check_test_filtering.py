@@ -32,7 +32,6 @@ _LIST_OF_LANGUAGE_LABELS = [
     "grpc-node",
     "objc",
     "php",
-    "php7",
     "php8",
     "python",
     "ruby",
