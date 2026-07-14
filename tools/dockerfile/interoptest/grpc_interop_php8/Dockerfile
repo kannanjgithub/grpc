@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:12
+FROM debian:11
 
 #=================
 # Basic C core dependencies
@@ -76,10 +76,7 @@ RUN apt-get update && apt-get install -y \
   && apt-get clean
 
 # use pinned version of pip to avoid sudden breakages
-# Some newer distros that have already implemented PEP 668. Use of
-# --break-system-packages is to workaround that. We should look into using
-# virtualenv in Dockerfile though.
-RUN python3 -m pip install --break-system-packages --upgrade pip==19.3.1
+RUN python3 -m pip install --upgrade pip==19.3.1
 
 # TODO(jtattermusch): currently six is needed for tools/run_tests scripts
 # but since our python2 usage is deprecated, we should get rid of it.
@@ -91,9 +88,9 @@ RUN python3 -m pip install --upgrade google-auth==1.23.0 google-api-python-clien
 
 
 #=================
-# PHP8 dependencies
+# PHP7 dependencies
 
-RUN apt-get update && apt-get install -y php8.2 php8.2-dev php-pear && apt-get clean
+RUN apt-get update && apt-get install -y php7.4-dev php-pear && apt-get clean
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php
